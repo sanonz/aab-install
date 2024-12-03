@@ -1,10 +1,10 @@
-# npx install-aab
+# npx aab-install
 
 > Installs an aab onto an Android phone
 
 ## Usage: 
 ```
-npx install-aab my-app.aab
+npx aab-install my-app.aab
 ```
 
 ## Requirements:

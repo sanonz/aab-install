@@ -1,6 +1,6 @@
 {
-  "name": "install-aab",
-  "version": "0.1.0",
+  "name": "aab-install",
+  "version": "0.2.0",
   "description": "Install an aab using adb",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
   "bin": "index.js",
   "repository": {
     "type": "git",
-    "url": "JonnyBurger/install-aab"
+    "url": "sanonz/aab-install"
   },
   "keywords": [
     "adb",
@@ -24,9 +24,9 @@
   "author": "Jonny Burger",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/JonnyBurger/install-aab/issues"
+    "url": "https://github.com/sanonz/aab-install/issues"
   },
-  "homepage": "https://github.com/JonnyBurger/install-aab#readme",
+  "homepage": "https://github.com/sanonz/aab-install#readme",
   "dependencies": {
     "execa": "^2.0.3",
     "temp-dir": "^2.0.0"

@@ -8,7 +8,7 @@ const jarPath = path.resolve(__dirname, 'bundletool-all-0.10.2.jar');
 
 if (!process.argv[2]) {
 	console.log('Pass a path to an .aab file. For example:');
-	console.log('npx install-aab myapp.aab');
+	console.log('npx aab-install myapp.aab');
 	process.exit(1);
 }
 const filePath = path.resolve(process.cwd(), process.argv[2]);
@@ -17,12 +17,10 @@ if (!fs.existsSync(filePath)) {
 	process.exit(1);
 }
 
-const dir = path.join(tempDir, `install-aab-${Math.random()}`);
+const dir = path.join(tempDir, `aab-install-${Date.now()}`);
 fs.mkdirSync(dir);
 
 const apksOutput = `${dir}/app.apks`;
-const unzipOutput = `${dir}/extracted`;
-fs.mkdirSync(unzipOutput);
 
 function cleanUp() {
 	console.log('Cleaning up...');
@@ -44,20 +42,14 @@ execa('java', [
 		process.exit(1);
 	})
 	.then(() => {
-		console.log('Unzipping...');
-		return execa('unzip', [apksOutput, '-d', unzipOutput]);
-	})
-	.catch(err => {
-		console.log('Could not unzip output dir', err.message);
-		cleanUp();
-		process.exit(1);
-	})
-	.then(() => {
-		console.log(`Unzipped.`);
-		const apkPath = `${unzipOutput}/splits/base-master.apk`;
-		console.log(`APK path: ${apkPath}`);
+		const apkPath = apksOutput;
 		console.log('Installing...');
-		const installationProcess = execa('adb', ['install', apkPath]);
+		const installationProcess = execa('java', [
+			'-jar',
+			jarPath,
+			'install-apks',
+			`--apks=${apkPath}`,
+		]);
 		installationProcess.stdout.pipe(process.stdout);
 		installationProcess.stderr.pipe(process.stderr);
 		return installationProcess;
